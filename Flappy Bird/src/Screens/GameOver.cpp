@@ -41,7 +41,7 @@ namespace Game {
 			 if(gameover)
 			{
 				DrawText(FormatText("Game Over"), Game::HALF_SCREENWIDTH - (MeasureText("Game Over", FONT_SIZE_TITLE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / TITLE_LINE_DIVIDER, FONT_SIZE_TITLE, DARKGRAY);
-				DrawText(FormatText("You have been DESTROYED"), Game::HALF_SCREENWIDTH - (MeasureText("You have been DESTROYED", FONT_SIZE_TITLE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / WINNER_LINE_DIVIDER, FONT_SIZE_TITLE, RED);
+				DrawText(FormatText(""), Game::HALF_SCREENWIDTH - (MeasureText("", FONT_SIZE_TITLE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / WINNER_LINE_DIVIDER, FONT_SIZE_TITLE, RED);
 				
 				DrawRectangle(menuButton.x, menuButton.y, menuButton.width, menuButton.height, LIGHTGRAY);
 				DrawText(FormatText("Menu"), Game::HALF_SCREENWIDTH - (MeasureText("Menu", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / OPTIONS_LINE_DIVIDER + FONT_SIZE_TITLE, FONT_SIZE_OPTIONS, DARKGRAY);

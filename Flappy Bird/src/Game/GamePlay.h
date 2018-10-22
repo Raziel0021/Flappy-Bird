@@ -17,13 +17,12 @@ namespace Game {
 
 		//extern Texture2D rocket;
 		//extern Texture2D asteroid;
-		//extern Sound shootSound;
-		//extern Sound explosionSound;
-		//extern Music music;
+		extern Sound jumpSound;
+		extern Sound collisionSound;
+		extern Music music;
 		extern Player player;
 		extern bool gameover;
 		extern bool pause;
-		//extern bool victory;
 
 		void InitGame();
 		void Play();

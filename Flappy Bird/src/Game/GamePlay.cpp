@@ -16,15 +16,17 @@ namespace Game {
 		bool pause;
 		static bool mute;
 
-		static float initPosX, initPosY;
-		static float initVelX, initVelY;
-
+		Sound jumpSound;
+		Sound collisionSound;
+		Music music;
 		Player player;
 		static const int TOP_LIMIT=10;
 		static float sectionWidth;
 		list<int> listSection;
 		static int numSection;
 		static float levelPosition = 0.0f;
+		static const float LEVEL_SPEED = 210.0f;
+		static const float CURRENCY_BETWEEN_SECTIONS = 0.4f;
 		static const float GRAVITY = 800.0f;
 		static const float GRAVITY_DIVIDER = 60.0f;
 		static const float FIXED_POSITION_X_DIVIDER = 6.0f;
@@ -32,7 +34,11 @@ namespace Game {
 		static const float ZERO_ACCELERATION = 0.0f;
 		static const float JUMP_DIVIDER = 3.5f;
 		static const Vector2 INIT_SIZE = { SCREENWIDTH/12,SCREENHEIGHT/12 };
-		static const float OBSTACLE_WIDTH;
+		static const float OBSTACLE_WIDTH= 80.0f;
+		static const float OBSTACLE_HEIGHT_DIVIDER = 4;
+		static const int OBSTACLE_RAND_DIVIDER_HEIGHT = 2;
+		static const int SECTIONS_MARGIN_WIDTH = 270;
+		static const int GATE_SPACE_HEIGHT = 200;
 		static const int ZERO = 0;
 		static const int POINTS_POS_Y = 10;
 		static const int FONT_SIZE_POINTS = 60;
@@ -51,7 +57,7 @@ namespace Game {
 			player.points = ZERO;
 
 			listSection = { 0,0,0,0 };
-			sectionWidth = SCREENWIDTH / (listSection.size() -0.4f);
+			sectionWidth = SCREENWIDTH / (listSection.size() -CURRENCY_BETWEEN_SECTIONS);
 		}
 
 		void Play()
@@ -82,19 +88,19 @@ namespace Game {
 				player.velocity += player.acceleration * GetFrameTime();
 				player.position.y += player.velocity*GetFrameTime();
 
-				if ((player.position.y - player.size.y / TOP_LIMIT) <= 0)
+				if ((player.position.y - player.size.y / TOP_LIMIT) <= ZERO)
 				{
 					player.position.y = player.size.y / TOP_LIMIT;
 				}
 				//Walls Movement
-				levelPosition += 210.0f*GetFrameTime();
+				levelPosition += LEVEL_SPEED*GetFrameTime();
 
 				if (levelPosition >= sectionWidth) 
 				{
 					levelPosition -= sectionWidth;
 					listSection.pop_front();
-					int i = rand() % (SCREENHEIGHT - (SCREENHEIGHT /2));
-					if (i <= SCREENHEIGHT / 4)
+					int i = rand() % (SCREENHEIGHT - (SCREENHEIGHT /OBSTACLE_RAND_DIVIDER_HEIGHT));
+					if (i <= SCREENHEIGHT / OBSTACLE_HEIGHT_DIVIDER)
 					{
 						i = ZERO;
 					}
@@ -106,8 +112,8 @@ namespace Game {
 				{
 					if (var != ZERO)
 					{
-						if (CheckCollisionRecs({(float) numSection*sectionWidth + 270 - levelPosition,(float)SCREENHEIGHT - var,80.0f,(float)SCREENHEIGHT }, {player.position.x, player.position.y,player.size.x, player.size.y }) ||
-							(CheckCollisionRecs({(float)numSection*sectionWidth + 270 - levelPosition,(float)ZERO, 80.0f, (float)SCREENHEIGHT - var - 200.0f }, { player.position.x, player.position.y,player.size.x, player.size.y })))
+						if (CheckCollisionRecs({(float) numSection*sectionWidth + SECTIONS_MARGIN_WIDTH - levelPosition,(float)SCREENHEIGHT - var,OBSTACLE_WIDTH,(float)SCREENHEIGHT }, {player.position.x, player.position.y,player.size.x, player.size.y }) ||
+							(CheckCollisionRecs({(float)numSection*sectionWidth + SECTIONS_MARGIN_WIDTH - levelPosition,(float)ZERO, OBSTACLE_WIDTH, (float)SCREENHEIGHT - var - GATE_SPACE_HEIGHT }, { player.position.x, player.position.y,player.size.x, player.size.y })))
 						{
 							gameover = true;
 						}
@@ -127,13 +133,13 @@ namespace Game {
 			{
 				DrawRectangle(player.position.x, player.position.y, player.size.x, player.size.y, RED);
 			}
-			numSection = 0;
+			numSection = ZERO;
 			for (auto var : listSection)
 			{
 				if (var != ZERO)
 				{
-					DrawRectangle(numSection*sectionWidth + 270 - levelPosition,SCREENHEIGHT-var,80,SCREENHEIGHT,GREEN);
-					DrawRectangle(numSection*sectionWidth + 270 - levelPosition, ZERO, 80, SCREENHEIGHT - var- 200, GREEN);
+					DrawRectangle(numSection*sectionWidth + SECTIONS_MARGIN_WIDTH - levelPosition,SCREENHEIGHT-var,OBSTACLE_WIDTH,SCREENHEIGHT,GREEN);
+					DrawRectangle(numSection*sectionWidth + SECTIONS_MARGIN_WIDTH - levelPosition, ZERO, OBSTACLE_WIDTH, SCREENHEIGHT - var- GATE_SPACE_HEIGHT, GREEN);
 				}
 				numSection++;
 			}

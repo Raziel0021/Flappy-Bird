@@ -65,8 +65,8 @@ namespace Game
 
 			#ifdef AUDIO	
 				InitAudioDevice();
-				GamePlay::shootSound = LoadSound("res/Shoot.wav");
-				GamePlay::explosionSound = LoadSound("res/Explosion.wav");
+				GamePlay::jumpSound = LoadSound("res/Shoot.wav");
+				GamePlay::collisionSound= LoadSound("res/Explosion.wav");
 				GamePlay::music = LoadMusicStream("res/BackgroundMusic.ogg");
 				PlayMusicStream(GamePlay::music);
 			#endif // AUDIO
@@ -77,8 +77,8 @@ namespace Game
 			//UnloadTexture (GamePlay::rocket);
 			//UnloadTexture(GamePlay::asteroid);
 			#ifdef AUDIO
-				UnloadSound(GamePlay::shootSound);
-				UnloadSound(GamePlay::explosionSound);
+				UnloadSound(GamePlay::jumpSound);
+				UnloadSound(GamePlay::collisionSound);
 				UnloadMusicStream(GamePlay::music);
 				CloseAudioDevice();
 			#endif // AUDIO
