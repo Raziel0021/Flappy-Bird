@@ -18,6 +18,7 @@ namespace Game {
 
 		Sound jumpSound;
 		Sound collisionSound;
+		Texture2D Bird;
 		Music music;
 		Player player;
 		static const int TOP_LIMIT=10;

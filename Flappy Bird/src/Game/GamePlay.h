@@ -15,8 +15,7 @@ namespace Game {
 			int points;
 		};
 
-		//extern Texture2D rocket;
-		//extern Texture2D asteroid;
+		extern Texture2D Bird;
 		extern Sound jumpSound;
 		extern Sound collisionSound;
 		extern Music music;
