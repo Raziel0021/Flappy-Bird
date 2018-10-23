@@ -18,8 +18,15 @@ namespace Game {
 
 		Sound jumpSound;
 		Sound collisionSound;
-		Texture2D Bird;
 		Music music;
+		
+		Texture2D Bird;
+		static Vector2 position = { 350.0f, 280.0f };
+		static Rectangle frameRec = { 0.0f, 0.0f, (float)Bird.width / 4, (float)Bird.height };
+		static int currentFrame = 0;
+		static int framesCounter = 0;
+		static int framesSpeed = 8;
+		
 		Player player;
 		static const int TOP_LIMIT=10;
 		static float sectionWidth;
@@ -57,6 +64,12 @@ namespace Game {
 			player.size = INIT_SIZE;
 			player.points = ZERO;
 
+			position = { 350.0f, 280.0f };
+			frameRec = { 0.0f, 0.0f, (float)Bird.width / 4, (float)Bird.height };
+			currentFrame = 0;
+			framesCounter = 0;
+			framesSpeed = 8;
+
 			listSection = { 0,0,0,0 };
 			sectionWidth = SCREENWIDTH / (listSection.size() -CURRENCY_BETWEEN_SECTIONS);
 		}
@@ -69,6 +82,19 @@ namespace Game {
 				if (!mute)
 					UpdateMusicStream(music);
 				#endif // AUDIO
+
+				//Player Animation-Calc
+				framesCounter++;
+
+				if (framesCounter*GetFrameTime() >= (60 / framesSpeed))
+				{
+					framesCounter = 0;
+					currentFrame++;
+
+					if (currentFrame > 3) currentFrame = 0;
+
+					frameRec.x = (float)currentFrame*(float)Bird.width / 4;
+				}
 
 				//Player Movement
 				if (IsKeyPressed(KEY_SPACE)&& player.velocity >= GRAVITY/GRAVITY_DIVIDER )
@@ -129,10 +155,12 @@ namespace Game {
 			if (player.velocity>ZERO) 
 			{
 				DrawRectangle(player.position.x, player.position.y, player.size.x, player.size.y, ORANGE);
+				//DrawTextureRec(Bird, frameRec, player.position - {(float)Bird.width / 2, (float)Bird.height / 2}, WHITE);
 			}
 			else
 			{
 				DrawRectangle(player.position.x, player.position.y, player.size.x, player.size.y, RED);
+				DrawTextureRec(Bird, frameRec, player.position, WHITE);
 			}
 			numSection = ZERO;
 			for (auto var : listSection)

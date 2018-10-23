@@ -59,7 +59,7 @@ namespace Game
 			InitWindow(SCREENWIDTH, SCREENHEIGHT, "FlappyBird");
 			SetExitKey(0);
 			
-			//GamePlay::Bird = LoadTexture("res/Bird.png");
+			GamePlay::Bird = LoadTexture("res/bat.png");
 			//GamePlay::asteroid = LoadTexture("res/AsteroidePequeño.png");
 			//#define AUDIO
 
@@ -74,7 +74,7 @@ namespace Game
 		void UnloadGame()
 		{
 			// TODO: Unload all dynamic loaded data (textures, sounds, models...)
-			//UnloadTexture (GamePlay::Bird);
+			UnloadTexture (GamePlay::Bird);
 			//UnloadTexture(GamePlay::asteroid);
 			#ifdef AUDIO
 				UnloadSound(GamePlay::jumpSound);
