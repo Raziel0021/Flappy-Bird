@@ -21,6 +21,8 @@ namespace Game {
 		Music music;
 		
 		Texture2D Bird;
+		Texture2D Background;
+		static float backgroundPosition = 0.0f;
 		static Vector2 position = { 350.0f, 280.0f };
 		static Rectangle frameRec = { 0.0f, 0.0f, (float)Bird.width / 4, (float)Bird.height };
 		static int currentFrame = 0;
@@ -41,7 +43,7 @@ namespace Game {
 		static const float INIT_PLAYER_POS_Y_DIVIDER = 2;
 		static const float ZERO_ACCELERATION = 0.0f;
 		static const float JUMP_DIVIDER = 3.5f;
-		static const Vector2 INIT_SIZE = { SCREENWIDTH/12,SCREENHEIGHT/12 };
+		static const Vector2 INIT_SIZE = { SCREENWIDTH/14,SCREENHEIGHT/14 };
 		static const float OBSTACLE_WIDTH= 80.0f;
 		static const float OBSTACLE_HEIGHT_DIVIDER = 4;
 		static const int OBSTACLE_RAND_DIVIDER_HEIGHT = 2;
@@ -84,7 +86,7 @@ namespace Game {
 				#endif // AUDIO
 
 				//Player Animation-Calc
-				framesCounter++;
+				/*framesCounter++;
 
 				if (framesCounter*GetFrameTime() >= (60 / framesSpeed))
 				{
@@ -94,7 +96,7 @@ namespace Game {
 					if (currentFrame > 3) currentFrame = 0;
 
 					frameRec.x = (float)currentFrame*(float)Bird.width / 4;
-				}
+				}*/
 
 				//Player Movement
 				if (IsKeyPressed(KEY_SPACE)&& player.velocity >= GRAVITY/GRAVITY_DIVIDER )
@@ -111,7 +113,7 @@ namespace Game {
 				{
 					player.acceleration = GRAVITY;
 				}
-
+				
 				player.velocity += player.acceleration * GetFrameTime();
 				player.position.y += player.velocity*GetFrameTime();
 
@@ -119,9 +121,20 @@ namespace Game {
 				{
 					player.position.y = player.size.y / TOP_LIMIT;
 				}
+
+				if (player.velocity > ZERO)
+				{
+					currentFrame = 0;
+					frameRec.x = (float)currentFrame*(float)Bird.width / 4;
+				}
+				else
+				{
+					currentFrame = 3;
+					frameRec.x = (float)currentFrame*(float)Bird.width / 4;
+				}
 				//Walls Movement
 				levelPosition += LEVEL_SPEED*GetFrameTime();
-
+				backgroundPosition += (LEVEL_SPEED / 3)*GetFrameTime();
 				if (levelPosition >= sectionWidth) 
 				{
 					levelPosition -= sectionWidth;
@@ -152,16 +165,20 @@ namespace Game {
 		}
 		void DrawGame()
 		{
-			if (player.velocity>ZERO) 
+			numSection = ZERO;
+			for (auto var : listSection)
+			{
+					DrawTextureRec(Background, { backgroundPosition,0,(float)SCREENWIDTH,(float)SCREENHEIGHT }, { 0,0 }, WHITE);
+			}
+		/*	if (player.velocity>ZERO) 
 			{
 				DrawRectangle(player.position.x, player.position.y, player.size.x, player.size.y, ORANGE);
-				//DrawTextureRec(Bird, frameRec, player.position - {(float)Bird.width / 2, (float)Bird.height / 2}, WHITE);
 			}
 			else
 			{
 				DrawRectangle(player.position.x, player.position.y, player.size.x, player.size.y, RED);
-				DrawTextureRec(Bird, frameRec, player.position, WHITE);
-			}
+			}*/
+			DrawTextureRec(Bird, frameRec, { player.position.x - (float)Bird.width / 25,player.position.y - (float)Bird.height / 10 }, WHITE);
 			numSection = ZERO;
 			for (auto var : listSection)
 			{
@@ -172,7 +189,9 @@ namespace Game {
 				}
 				numSection++;
 			}
+			DrawText(FormatText("%02i", player.points), HALF_SCREENWIDTH - (MeasureText(FormatText("%02i", player.points), FONT_SIZE_POINTS+8 ) / DIVIDER_MEASURE_TEXT -4), POINTS_POS_Y, FONT_SIZE_POINTS+4, BLACK);
 			DrawText(FormatText("%02i", player.points), HALF_SCREENWIDTH- (MeasureText(FormatText("%02i", player.points), FONT_SIZE_POINTS) / DIVIDER_MEASURE_TEXT), POINTS_POS_Y, FONT_SIZE_POINTS, WHITE);
+			
 		}
 	}
 }
