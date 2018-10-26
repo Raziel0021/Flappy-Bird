@@ -87,7 +87,6 @@ namespace Game {
 
 				//Player Animation-Calc
 				/*framesCounter++;
-
 				if (framesCounter*GetFrameTime() >= (60 / framesSpeed))
 				{
 					framesCounter = 0;
@@ -97,7 +96,6 @@ namespace Game {
 
 					frameRec.x = (float)currentFrame*(float)Bird.width / 4;
 				}*/
-
 				//Player Movement
 				if (IsKeyPressed(KEY_SPACE)&& player.velocity >= GRAVITY/GRAVITY_DIVIDER )
 				{
@@ -157,7 +155,6 @@ namespace Game {
 						{
 							gameover = true;
 						}
-						
 					}
 					numSection++;
 				}
@@ -170,7 +167,7 @@ namespace Game {
 			{
 					DrawTextureRec(Background, { backgroundPosition,0,(float)SCREENWIDTH,(float)SCREENHEIGHT }, { 0,0 }, WHITE);
 			}
-		/*	if (player.velocity>ZERO) 
+			/*if (player.velocity>ZERO) 
 			{
 				DrawRectangle(player.position.x, player.position.y, player.size.x, player.size.y, ORANGE);
 			}
