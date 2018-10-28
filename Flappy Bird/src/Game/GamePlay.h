@@ -17,6 +17,8 @@ namespace Game {
 
 		extern Texture2D Bird;
 		extern Texture2D Background;
+		extern Texture2D Ground;
+		extern Texture2D Sky;
 		extern Sound jumpSound;
 		extern Sound collisionSound;
 		extern Music music;

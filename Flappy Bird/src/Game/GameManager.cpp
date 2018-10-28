@@ -60,7 +60,9 @@ namespace Game
 			SetExitKey(0);
 			
 			GamePlay::Bird = LoadTexture("res/Assets/Bird.png");
-			GamePlay::Background = LoadTexture("res/Assets/background2.png");
+			GamePlay::Background = LoadTexture("res/Assets/Colinas.png");
+			GamePlay::Ground = LoadTexture("res/Assets/Arboles y suelo.png");
+			GamePlay::Sky = LoadTexture("res/Assets/Cielo.png");
 			//#define AUDIO
 
 			#ifdef AUDIO	

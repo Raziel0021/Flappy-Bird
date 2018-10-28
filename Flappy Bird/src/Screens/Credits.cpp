@@ -42,8 +42,8 @@ namespace Game {
 			DrawText("Credits", Game::HALF_SCREENWIDTH - (MeasureText("Credits", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / CREDITS_LINE_DIVIDER, FONT_SIZE, DARKGRAY);
 			DrawText("Héctor Iván Pereira", Game::HALF_SCREENWIDTH - (MeasureText("Hector Ivan Pereira", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER, FONT_SIZE, DARKGRAY);
 			DrawText("Assets Library", Game::HALF_SCREENWIDTH - (MeasureText("Assets Library", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE, FONT_SIZE, DARKGRAY);
-			DrawText("Raylib, boscaceoil.net", Game::HALF_SCREENWIDTH - (MeasureText("Raylib, Freesounds.org", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 2, FONT_SIZE, DARKGRAY);
-			DrawText("Music", Game::HALF_SCREENWIDTH - (MeasureText("Music", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 3, FONT_SIZE, DARKGRAY);
+			DrawText("Raylib,boscaceoil.net,Illustrator", Game::HALF_SCREENWIDTH - (MeasureText("Raylib,boscaceoil.net,Illustrator", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 2, FONT_SIZE, DARKGRAY);
+			DrawText("Music and Art", Game::HALF_SCREENWIDTH - (MeasureText("Music and Art", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 3, FONT_SIZE, DARKGRAY);
 			DrawText("Héctor Iván Pereira", Game::HALF_SCREENWIDTH - (MeasureText("Héctor Iván Pereira", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 4, FONT_SIZE, DARKGRAY);
 			DrawText("", Game::HALF_SCREENWIDTH - (MeasureText("", FONT_SIZE_URL) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 5, FONT_SIZE_URL, DARKGRAY);
 			DrawText("Sounds", Game::HALF_SCREENWIDTH - (MeasureText("Sounds", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 6, FONT_SIZE, DARKGRAY);
@@ -54,7 +54,7 @@ namespace Game {
 			DrawRectangle(backButton.x, backButton.y, backButton.width, backButton.height, LIGHTGRAY);
 			DrawText("Back", Game::HALF_SCREENWIDTH - (MeasureText("Back", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / HELPER_LINE_DIVIDER + FONT_SIZE, FONT_SIZE, DARKGRAY);
 			
-			DrawText("Version 0.2", Game::HALF_SCREENWIDTH - (MeasureText("Version 0.2", FONT_SIZE_HELPER) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / VERSION_LINE_DIVIDER + FONT_SIZE, FONT_SIZE_HELPER, DARKGRAY);
+			DrawText("Version 0.3", Game::HALF_SCREENWIDTH - (MeasureText("Version 0.3", FONT_SIZE_HELPER) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / VERSION_LINE_DIVIDER + FONT_SIZE, FONT_SIZE_HELPER, DARKGRAY);
 			
 		}
 		void updateCredits()

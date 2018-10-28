@@ -22,7 +22,11 @@ namespace Game {
 		
 		Texture2D Bird;
 		Texture2D Background;
+		Texture2D Ground;
+		Texture2D Sky;
 		static float backgroundPosition = 0.0f;
+		static float skyPosition = 0.0f;
+		static float groundPosition = 0.0f;
 		static Rectangle frameRec = { 0.0f, 0.0f, (float)Bird.width / 4, (float)Bird.height };
 		static int currentFrame = 0;
 		static int framesCounter = 0;
@@ -56,6 +60,30 @@ namespace Game {
 		static const float SCALE_DIVIDER_WIDTH = 25.0f;
 		static const float SCALE_DIVIDER_HEIGHT = 10.0f;
 		static const int NUM_FRAMES = 4;
+		
+		//Pause
+		static Vector2 mousePoint;
+		static const int FONT_SIZE_OPTIONS = 50;
+		static const int FONT_SIZE_PAUSE_BUTTON = 35;
+		static const float HORIZONTAL_MARGIN = 10;
+		static const float VERTICAL_MARGIN = 30;
+		static const float OPTIONS_LINE_DIVIDER = 3;
+		static const float PAUSE_LINE_DIVIDER = 1.05;
+		static const float PAUSE_PANEL_DIVIDER_Y = 3;
+		static const float PAUSE_PANEL_DIVIDER_X = 3.34f;
+		static const float PAUSE_PANEL_WIDTH= HALF_SCREENHEIGHT+50;
+		static const float PAUSE_PANEL_HEIGHT = SCREENHEIGHT / 3;
+		static const float MULTIPLIER_BUTTON_WIDTH = 1.15f;
+		static const float SPACE_BETWEEN_LINES = 1.3f;
+
+		static Rectangle pauseButton;
+		static Rectangle menuPanel;
+		static Rectangle resumeButton;
+		static Rectangle menuButton;
+		static Rectangle resetButton;
+		static Rectangle muteButton;
+
+
 		void InitGame()
 		{
 			MainMenu::menu = true;
@@ -77,10 +105,41 @@ namespace Game {
 
 			listSection = { 0,0,0,0 };
 			sectionWidth = SCREENWIDTH / (listSection.size() -CURRENCY_BETWEEN_SECTIONS);
+
+			//Pause
+			pauseButton = { (float)Game::SCREENWIDTH - (MeasureText("PAUSE", FONT_SIZE_PAUSE_BUTTON)* MULTIPLIER_BUTTON_WIDTH) - HORIZONTAL_MARGIN,
+				(float)Game::SCREENHEIGHT / PAUSE_LINE_DIVIDER,
+				(float)MeasureText("PAUSE", FONT_SIZE_PAUSE_BUTTON)* MULTIPLIER_BUTTON_WIDTH ,
+				(float)FONT_SIZE_PAUSE_BUTTON };
+
+			menuPanel = { (float)SCREENWIDTH / PAUSE_PANEL_DIVIDER_X  ,
+				(float)Game::SCREENHEIGHT / PAUSE_PANEL_DIVIDER_Y,
+				(float)PAUSE_PANEL_WIDTH ,
+				(float)PAUSE_PANEL_HEIGHT };
+
+			resumeButton = { (float)Game::HALF_SCREENWIDTH - (MeasureText("Resume", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT * MULTIPLIER_BUTTON_WIDTH) ,
+				(float)Game::SCREENHEIGHT / PAUSE_PANEL_DIVIDER_Y + VERTICAL_MARGIN,
+				(float)MeasureText("Resume", FONT_SIZE_OPTIONS)* MULTIPLIER_BUTTON_WIDTH ,
+				(float)FONT_SIZE_PAUSE_BUTTON* MULTIPLIER_BUTTON_WIDTH };
+
+			menuButton = { (float)Game::HALF_SCREENWIDTH - (MeasureText("Menu", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT * MULTIPLIER_BUTTON_WIDTH) ,
+				(float)Game::SCREENHEIGHT / PAUSE_PANEL_DIVIDER_Y + FONT_SIZE_OPTIONS + VERTICAL_MARGIN,
+				(float)MeasureText("Menu", FONT_SIZE_OPTIONS)* MULTIPLIER_BUTTON_WIDTH ,
+				(float)FONT_SIZE_PAUSE_BUTTON* MULTIPLIER_BUTTON_WIDTH };
+
+			resetButton = { (float)Game::HALF_SCREENWIDTH - (MeasureText("Restart", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT * MULTIPLIER_BUTTON_WIDTH) ,
+				(float)Game::SCREENHEIGHT / PAUSE_PANEL_DIVIDER_Y + FONT_SIZE_OPTIONS * 2 + VERTICAL_MARGIN,
+				(float)MeasureText("Restart", FONT_SIZE_OPTIONS)* MULTIPLIER_BUTTON_WIDTH ,
+				(float)FONT_SIZE_PAUSE_BUTTON* MULTIPLIER_BUTTON_WIDTH };
+			muteButton = { (float)Game::HALF_SCREENWIDTH - (MeasureText("Mute ON/OFF", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT * MULTIPLIER_BUTTON_WIDTH) ,
+				(float)Game::SCREENHEIGHT / PAUSE_PANEL_DIVIDER_Y + FONT_SIZE_OPTIONS * 3 + VERTICAL_MARGIN,
+				(float)MeasureText("Mute ON/OFF", FONT_SIZE_OPTIONS) + HORIZONTAL_MARGIN,
+				(float)FONT_SIZE_PAUSE_BUTTON* MULTIPLIER_BUTTON_WIDTH };
 		}
 
 		void Play()
 		{
+			mousePoint = GetMousePosition();
 			if (!pause) {
 				//#define AUDIO
 				#ifdef AUDIO
@@ -88,17 +147,6 @@ namespace Game {
 					UpdateMusicStream(music);
 				#endif // AUDIO
 
-				//Player Animation-Calc
-				/*framesCounter++;
-				if (framesCounter*GetFrameTime() >= (60 / framesSpeed))
-				{
-					framesCounter = 0;
-					currentFrame++;
-
-					if (currentFrame > 3) currentFrame = 0;
-
-					frameRec.x = (float)currentFrame*(float)Bird.width / 4;
-				}*/
 				//Player Movement
 				if (IsKeyPressed(KEY_SPACE)&& player.velocity >= GRAVITY/GRAVITY_DIVIDER )
 				{
@@ -135,7 +183,9 @@ namespace Game {
 				}
 				//Walls Movement
 				levelPosition += LEVEL_SPEED*GetFrameTime();
-				backgroundPosition += (LEVEL_SPEED / 3)*GetFrameTime();
+				backgroundPosition += (LEVEL_SPEED / 6)*GetFrameTime();
+				groundPosition += (LEVEL_SPEED / 3)*GetFrameTime();
+				skyPosition +=(LEVEL_SPEED / 9)*GetFrameTime();
 				if (levelPosition >= sectionWidth) 
 				{
 					levelPosition -= sectionWidth;
@@ -161,6 +211,51 @@ namespace Game {
 					}
 					numSection++;
 				}
+				if ((player.position.y - player.size.y ) >= SCREENHEIGHT) 
+				{
+					gameover = true;
+				}
+
+				//Pause-Button
+				if (CheckCollisionPointRec(mousePoint, pauseButton))
+				{
+					if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+					{
+						pause = !pause;
+					}
+				}
+			}
+
+			if (pause) {
+				if (CheckCollisionPointRec(mousePoint, resumeButton))
+				{
+					if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+					{
+						pause = !pause;
+					}
+				}
+				if (CheckCollisionPointRec(mousePoint, menuButton))
+				{
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+					{
+						GamePlay::InitGame();
+					}
+				}
+				if (CheckCollisionPointRec(mousePoint, resetButton))
+				{
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+					{
+						GamePlay::InitGame();
+						MainMenu::menu = false;
+					}
+				}
+				if (CheckCollisionPointRec(mousePoint, muteButton))
+				{
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+					{
+						mute = !mute;
+					}
+				}
 			}
 		}
 		void DrawGame()
@@ -168,16 +263,20 @@ namespace Game {
 			numSection = ZERO;
 			for (auto var : listSection)
 			{
+					DrawTextureRec(Sky, { skyPosition,0,(float)SCREENWIDTH,(float)SCREENHEIGHT }, INIT_POS, WHITE);
 					DrawTextureRec(Background, { backgroundPosition,0,(float)SCREENWIDTH,(float)SCREENHEIGHT }, INIT_POS, WHITE);
+					DrawTextureRec(Ground, { groundPosition,0,(float)SCREENWIDTH,(float)SCREENHEIGHT }, INIT_POS, WHITE);
 			}
-			/*if (player.velocity>ZERO) 
+		#ifdef _DEBUG
+			if (player.velocity>ZERO) 
 			{
 				DrawRectangle(player.position.x, player.position.y, player.size.x, player.size.y, ORANGE);
 			}
 			else
 			{
 				DrawRectangle(player.position.x, player.position.y, player.size.x, player.size.y, RED);
-			}*/
+			}
+		#endif
 			DrawTextureRec(Bird, frameRec, { player.position.x - (float)Bird.width / SCALE_DIVIDER_WIDTH,player.position.y - (float)Bird.height / SCALE_DIVIDER_HEIGHT }, WHITE);
 			numSection = ZERO;
 			for (auto var : listSection)
@@ -191,6 +290,31 @@ namespace Game {
 			}
 			DrawText(FormatText("%02i", player.points), HALF_SCREENWIDTH - (MeasureText(FormatText("%02i", player.points), FONT_SIZE_POINTS+8 ) / DIVIDER_MEASURE_TEXT -4), POINTS_POS_Y, FONT_SIZE_POINTS+4, BLACK);
 			DrawText(FormatText("%02i", player.points), HALF_SCREENWIDTH- (MeasureText(FormatText("%02i", player.points), FONT_SIZE_POINTS) / DIVIDER_MEASURE_TEXT), POINTS_POS_Y, FONT_SIZE_POINTS, WHITE);
+		
+			//Pause-Button
+			if (!pause)
+			{
+				DrawRectangle(pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height, LIGHTGRAY);
+				DrawText(FormatText("PAUSE"), Game::SCREENWIDTH - (MeasureText("PAUSE", FONT_SIZE_PAUSE_BUTTON)*MULTIPLIER_BUTTON_WIDTH - HORIZONTAL_MARGIN) - HORIZONTAL_MARGIN, Game::SCREENHEIGHT / PAUSE_LINE_DIVIDER, FONT_SIZE_PAUSE_BUTTON, DARKGRAY);
+			}
+			//Pause-Menu
+			if (pause)
+			{
+				//Panel
+				DrawRectangle(menuPanel.x, menuPanel.y, menuPanel.width, menuPanel.height, DARKGRAY);
+				//Buttons
+				DrawRectangle(resumeButton.x, resumeButton.y, resumeButton.width, resumeButton.height, LIGHTGRAY);
+				DrawText(FormatText("Resume"), Game::HALF_SCREENWIDTH - (MeasureText("Resume", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT * MULTIPLIER_BUTTON_WIDTH) + HORIZONTAL_MARGIN, Game::SCREENHEIGHT / PAUSE_PANEL_DIVIDER_Y + VERTICAL_MARGIN, FONT_SIZE_OPTIONS, RAYWHITE);
+
+				DrawRectangle(menuButton.x, menuButton.y, menuButton.width, menuButton.height, LIGHTGRAY);
+				DrawText(FormatText("Menu"), Game::HALF_SCREENWIDTH - (MeasureText("Menu", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT * MULTIPLIER_BUTTON_WIDTH) + HORIZONTAL_MARGIN, Game::SCREENHEIGHT / PAUSE_PANEL_DIVIDER_Y + FONT_SIZE_OPTIONS + VERTICAL_MARGIN, FONT_SIZE_OPTIONS, RAYWHITE);
+
+				DrawRectangle(resetButton.x, resetButton.y, resetButton.width, resetButton.height, LIGHTGRAY);
+				DrawText(FormatText("Restart"), Game::HALF_SCREENWIDTH - (MeasureText("Restart", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT * MULTIPLIER_BUTTON_WIDTH) + HORIZONTAL_MARGIN, Game::SCREENHEIGHT / PAUSE_PANEL_DIVIDER_Y + FONT_SIZE_OPTIONS * 2 + VERTICAL_MARGIN, FONT_SIZE_OPTIONS, RAYWHITE);
+
+				DrawRectangle(muteButton.x, muteButton.y, muteButton.width, muteButton.height, LIGHTGRAY);
+				DrawText(FormatText("Mute ON/OFF"), Game::HALF_SCREENWIDTH - (MeasureText("Mute ON/OFF", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT * MULTIPLIER_BUTTON_WIDTH) + HORIZONTAL_MARGIN, Game::SCREENHEIGHT / PAUSE_PANEL_DIVIDER_Y + FONT_SIZE_OPTIONS * 3 + VERTICAL_MARGIN, FONT_SIZE_OPTIONS, RAYWHITE);
+			}
 		}
 	}
 }
