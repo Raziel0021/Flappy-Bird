@@ -99,8 +99,8 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>MKDIR "$(TargetDir)res"
-XCOPY "$(SolutionDir)res" "$(TargetDir)res" /E /Y /S</Command>
+      <Command>MKDIR "$(TargetDir)res\Assets"
+XCOPY "$(SolutionDir)res\Assets" "$(TargetDir)res\Assets" /E /Y /S</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -140,8 +140,8 @@ XCOPY "$(SolutionDir)res" "$(TargetDir)res" /E /Y /S</Command>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>MKDIR "$(TargetDir)res"
-XCOPY "$(SolutionDir)res" "$(TargetDir)res" /E /Y /S</Command>
+      <Command>MKDIR "$(TargetDir)res\Assets"
+XCOPY "$(SolutionDir)res\Assets" "$(TargetDir)res\Assets" /E /Y /S</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

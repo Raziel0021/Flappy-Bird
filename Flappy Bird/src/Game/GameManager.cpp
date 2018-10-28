@@ -59,8 +59,8 @@ namespace Game
 			InitWindow(SCREENWIDTH, SCREENHEIGHT, "FlappyBird");
 			SetExitKey(0);
 			
-			GamePlay::Bird = LoadTexture("res/Bird.png");
-			GamePlay::Background = LoadTexture("res/background2.png");
+			GamePlay::Bird = LoadTexture("res/Assets/Bird.png");
+			GamePlay::Background = LoadTexture("res/Assets/background2.png");
 			//#define AUDIO
 
 			#ifdef AUDIO	
