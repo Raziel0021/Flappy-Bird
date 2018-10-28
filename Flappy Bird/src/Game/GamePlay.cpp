@@ -23,7 +23,6 @@ namespace Game {
 		Texture2D Bird;
 		Texture2D Background;
 		static float backgroundPosition = 0.0f;
-		static Vector2 position = { 350.0f, 280.0f };
 		static Rectangle frameRec = { 0.0f, 0.0f, (float)Bird.width / 4, (float)Bird.height };
 		static int currentFrame = 0;
 		static int framesCounter = 0;
@@ -53,6 +52,10 @@ namespace Game {
 		static const int POINTS_POS_Y = 10;
 		static const int FONT_SIZE_POINTS = 60;
 		static const int DIVIDER_MEASURE_TEXT = 2;
+		static const Vector2 INIT_POS = { 0,0 };
+		static const float SCALE_DIVIDER_WIDTH = 25.0f;
+		static const float SCALE_DIVIDER_HEIGHT = 10.0f;
+		static const int NUM_FRAMES = 4;
 		void InitGame()
 		{
 			MainMenu::menu = true;
@@ -61,15 +64,15 @@ namespace Game {
 			gameover = false;
 
 			player.position = { SCREENWIDTH / FIXED_POSITION_X_DIVIDER,SCREENHEIGHT / INIT_PLAYER_POS_Y_DIVIDER };
-			player.velocity = 0.0f;
-			player.acceleration = 0.0f;
+			player.velocity = ZERO_ACCELERATION;
+			player.acceleration =ZERO_ACCELERATION;
 			player.size = INIT_SIZE;
 			player.points = ZERO;
 
-			position = { 350.0f, 280.0f };
-			frameRec = { 0.0f, 0.0f, (float)Bird.width / 4, (float)Bird.height };
-			currentFrame = 0;
-			framesCounter = 0;
+		
+			frameRec = { INIT_POS.x, INIT_POS.y, (float)Bird.width / NUM_FRAMES, (float)Bird.height };
+			currentFrame = ZERO;
+			framesCounter = ZERO;
 			framesSpeed = 8;
 
 			listSection = { 0,0,0,0 };
@@ -157,7 +160,6 @@ namespace Game {
 						{
 							gameover = true;
 						}
-						
 					}
 					numSection++;
 				}
@@ -168,7 +170,7 @@ namespace Game {
 			numSection = ZERO;
 			for (auto var : listSection)
 			{
-					DrawTextureRec(Background, { backgroundPosition,0,(float)SCREENWIDTH,(float)SCREENHEIGHT }, { 0,0 }, WHITE);
+					DrawTextureRec(Background, { backgroundPosition,0,(float)SCREENWIDTH,(float)SCREENHEIGHT }, INIT_POS, WHITE);
 			}
 		/*	if (player.velocity>ZERO) 
 			{
@@ -178,7 +180,7 @@ namespace Game {
 			{
 				DrawRectangle(player.position.x, player.position.y, player.size.x, player.size.y, RED);
 			}*/
-			DrawTextureRec(Bird, frameRec, { player.position.x - (float)Bird.width / 25,player.position.y - (float)Bird.height / 10 }, WHITE);
+			DrawTextureRec(Bird, frameRec, { player.position.x - (float)Bird.width / SCALE_DIVIDER_WIDTH,player.position.y - (float)Bird.height / SCALE_DIVIDER_HEIGHT }, WHITE);
 			numSection = ZERO;
 			for (auto var : listSection)
 			{
@@ -191,7 +193,6 @@ namespace Game {
 			}
 			DrawText(FormatText("%02i", player.points), HALF_SCREENWIDTH - (MeasureText(FormatText("%02i", player.points), FONT_SIZE_POINTS+8 ) / DIVIDER_MEASURE_TEXT -4), POINTS_POS_Y, FONT_SIZE_POINTS+4, BLACK);
 			DrawText(FormatText("%02i", player.points), HALF_SCREENWIDTH- (MeasureText(FormatText("%02i", player.points), FONT_SIZE_POINTS) / DIVIDER_MEASURE_TEXT), POINTS_POS_Y, FONT_SIZE_POINTS, WHITE);
-			
 		}
 	}
 }
