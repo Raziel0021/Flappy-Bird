@@ -1,9 +1,9 @@
-#include "Credits.h"
+#include "_credits.h"
 
 #include <raylib.h>
 
-#include "Game/GameManager.h"
-#include "MainMenu.h"
+#include "Game/game_manager.h"
+#include "main_menu.h"
 
 using namespace Game;
 namespace Game {
@@ -11,6 +11,7 @@ namespace Game {
 	{
 		static const int FONT_SIZE_TITLE = 50;
 		static const int FONT_SIZE = 35;
+		static const int FONT_SIZE_SOFTWARES = 25;
 		static const int FONT_SIZE_URL = 16;
 		static const float FONT_SIZE_HELPER = FONT_SIZE / 2;
 		static const int GAMETITLE_LINE_DIVIDER = 10;
@@ -42,7 +43,7 @@ namespace Game {
 			DrawText("Credits", Game::HALF_SCREENWIDTH - (MeasureText("Credits", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / CREDITS_LINE_DIVIDER, FONT_SIZE, DARKGRAY);
 			DrawText("Héctor Iván Pereira", Game::HALF_SCREENWIDTH - (MeasureText("Hector Ivan Pereira", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER, FONT_SIZE, DARKGRAY);
 			DrawText("Assets Library", Game::HALF_SCREENWIDTH - (MeasureText("Assets Library", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE, FONT_SIZE, DARKGRAY);
-			DrawText("Raylib,boscaceoil.net,Illustrator", Game::HALF_SCREENWIDTH - (MeasureText("Raylib,boscaceoil.net,Illustrator", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 2, FONT_SIZE, DARKGRAY);
+			DrawText("Raylib,boscaceoil.net,Illustrator,Bfxr", Game::HALF_SCREENWIDTH - (MeasureText("Raylib,boscaceoil.net,Illustrator,Bfxr", FONT_SIZE_SOFTWARES) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 2, FONT_SIZE_SOFTWARES, DARKGRAY);
 			DrawText("Music and Art", Game::HALF_SCREENWIDTH - (MeasureText("Music and Art", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 3, FONT_SIZE, DARKGRAY);
 			DrawText("Héctor Iván Pereira", Game::HALF_SCREENWIDTH - (MeasureText("Héctor Iván Pereira", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 4, FONT_SIZE, DARKGRAY);
 			DrawText("", Game::HALF_SCREENWIDTH - (MeasureText("", FONT_SIZE_URL) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / LINE_DIVIDER + FONT_SIZE * 5, FONT_SIZE_URL, DARKGRAY);
@@ -54,7 +55,7 @@ namespace Game {
 			DrawRectangle(backButton.x, backButton.y, backButton.width, backButton.height, LIGHTGRAY);
 			DrawText("Back", Game::HALF_SCREENWIDTH - (MeasureText("Back", FONT_SIZE) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / HELPER_LINE_DIVIDER + FONT_SIZE, FONT_SIZE, DARKGRAY);
 			
-			DrawText("Version 0.3", Game::HALF_SCREENWIDTH - (MeasureText("Version 0.3", FONT_SIZE_HELPER) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / VERSION_LINE_DIVIDER + FONT_SIZE, FONT_SIZE_HELPER, DARKGRAY);
+			DrawText("Version 1.0", Game::HALF_SCREENWIDTH - (MeasureText("Version 1.0", FONT_SIZE_HELPER) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / VERSION_LINE_DIVIDER + FONT_SIZE, FONT_SIZE_HELPER, DARKGRAY);
 			
 		}
 		void updateCredits()

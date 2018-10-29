@@ -166,19 +166,19 @@ XCOPY "$(SolutionDir)res" "$(TargetDir)res" /E /Y /S</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Game\GameManager.cpp" />
-    <ClCompile Include="..\src\Game\GamePlay.cpp" />
+    <ClCompile Include="..\src\Game\game_manager.cpp" />
+    <ClCompile Include="..\src\Game\game_play.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\Screens\Credits.cpp" />
-    <ClCompile Include="..\src\Screens\GameOver.cpp" />
-    <ClCompile Include="..\src\Screens\MainMenu.cpp" />
+    <ClCompile Include="..\src\Screens\_credits.cpp" />
+    <ClCompile Include="..\src\Screens\game_over.cpp" />
+    <ClCompile Include="..\src\Screens\main_menu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Game\GameManager.h" />
-    <ClInclude Include="..\src\Game\GamePlay.h" />
-    <ClInclude Include="..\src\Screens\Credits.h" />
-    <ClInclude Include="..\src\Screens\GameOver.h" />
-    <ClInclude Include="..\src\Screens\MainMenu.h" />
+    <ClInclude Include="..\src\Game\game_manager.h" />
+    <ClInclude Include="..\src\Game\game_play.h" />
+    <ClInclude Include="..\src\Screens\_credits.h" />
+    <ClInclude Include="..\src\Screens\game_over.h" />
+    <ClInclude Include="..\src\Screens\main_menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

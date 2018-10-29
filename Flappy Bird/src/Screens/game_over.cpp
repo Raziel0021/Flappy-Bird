@@ -1,14 +1,15 @@
-#include "GameOver.h"
+#include "game_over.h"
 
 #include <raylib.h>
 
-#include "Game\GamePlay.h"
-#include "Game/GameManager.h"
-#include "MainMenu.h"
+#include "Game\game_play.h"
+#include "Game/game_manager.h"
+#include "main_menu.h"
 
 using namespace Game;
 using namespace GamePlay;
-namespace Game {
+namespace Game 
+{
 	namespace EndOfGame
 	{
 		static const int FONT_SIZE_TITLE = 70;
@@ -54,7 +55,8 @@ namespace Game {
 		void updateGameOver()
 		{
 			mousePoint = GetMousePosition();
-			if (gameover ) {
+			if (gameover ) 
+			{
 				if (CheckCollisionPointRec(mousePoint, menuButton))
 				{
 					if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
@@ -69,7 +71,6 @@ namespace Game {
 					if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 					{
 						GameManager::UnloadGame();
-						
 					}
 				}
 			}

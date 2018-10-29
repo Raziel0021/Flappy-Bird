@@ -1,9 +1,9 @@
-#include "Screens/MainMenu.h"
+#include "Screens/main_menu.h"
 
 #include <raylib.h>
 
-#include "Game\GameManager.h"
-#include "Credits.h"
+#include "Game\game_manager.h"
+#include "_credits.h"
 
 using namespace Game;
 namespace Game {
@@ -58,13 +58,14 @@ namespace Game {
 			DrawRectangle(exitButton.x, exitButton.y, exitButton.width, exitButton.height, LIGHTGRAY);
 			DrawText("Exit", Game::HALF_SCREENWIDTH - (MeasureText("Exit", FONT_SIZE_OPTIONS) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / OPTIONS_LINE_DIVIDER + (FONT_SIZE_OPTIONS * 2)*SPACE_BETWEEN_LINES, FONT_SIZE_OPTIONS, DARKGRAY);
 			
-			DrawText("Version 0.2", Game::HALF_SCREENWIDTH - (MeasureText("Version 0.2", FONT_SIZE_VERSION) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / VERSION_LINE_DIVIDER + FONT_SIZE_OPTIONS, FONT_SIZE_VERSION, DARKGRAY);
+			DrawText("Version 1.0", Game::HALF_SCREENWIDTH - (MeasureText("Version 1.0", FONT_SIZE_VERSION) / DIVIDER_MEASURE_TEXT), Game::SCREENHEIGHT / VERSION_LINE_DIVIDER + FONT_SIZE_OPTIONS, FONT_SIZE_VERSION, DARKGRAY);
 			
 		}
 		void UpdateMenu()
 		{
 			mousePoint = GetMousePosition();
-			if (menu) {
+			if (menu) 
+			{
 				if (CheckCollisionPointRec(mousePoint, playButton))
 				{
 					if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))

@@ -1,6 +1,7 @@
 #ifndef GAMEOVER_H
 #define GAMEOVER_H
-namespace Game {
+namespace Game 
+{
 	namespace EndOfGame
 	{
 		void initGameOverButtons();

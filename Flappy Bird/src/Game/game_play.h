@@ -3,8 +3,10 @@
 
 #include <raylib.h>
 
-namespace Game {
-	namespace GamePlay {
+namespace Game 
+{
+	namespace GamePlay 
+	{
 
 		struct Player
 		{

@@ -2,20 +2,20 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\Game\GameManager.cpp">
+    <ClCompile Include="..\src\Game\game_manager.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Screens\MainMenu.cpp">
-      <Filter>Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Screens\Credits.cpp">
-      <Filter>Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Screens\GameOver.cpp">
-      <Filter>Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Game\GamePlay.cpp">
+    <ClCompile Include="..\src\Game\game_play.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Screens\game_over.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Screens\main_menu.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Screens\_credits.cpp">
+      <Filter>Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -27,20 +27,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Game\GameManager.h">
+    <ClInclude Include="..\src\Game\game_manager.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Screens\MainMenu.h">
-      <Filter>Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Screens\Credits.h">
-      <Filter>Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Screens\GameOver.h">
-      <Filter>Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Game\GamePlay.h">
+    <ClInclude Include="..\src\Game\game_play.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Screens\game_over.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Screens\main_menu.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Screens\_credits.h">
+      <Filter>Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

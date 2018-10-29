@@ -1,6 +1,7 @@
 #ifndef CREDITS_H
 #define CREDITS_H
-namespace Game {
+namespace Game 
+{
 	namespace Credits
 	{
 		extern bool credits;

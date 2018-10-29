@@ -1,7 +1,7 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
-namespace Game {
-
+namespace Game 
+{
 	namespace MainMenu
 	{
 		extern bool menu;
